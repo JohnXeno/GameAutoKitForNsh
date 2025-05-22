@@ -1,0 +1,57 @@
+{
+    "name": "Sample Test Workflow",
+    "start_step_id": "1",
+    "variables": {},
+    "steps": [
+        {
+            "id": "1",
+            "description": "Start Workflow",
+            "action": "debug_print",
+            "parameters": {"message": "Workflow starting..."},
+            "on_success": "2"
+        },
+        {
+            "id": "2",
+            "description": "Wait for a moment",
+            "action": "wait",
+            "parameters": {"seconds": 2},
+            "on_success": "3"
+        },
+        {
+            "id": "3",
+            "description": "Announce image search",
+            "action": "debug_print",
+            "parameters": {"message": "Attempting to find dummy_target.png"},
+            "on_success": "4"
+        },
+        {
+            "id": "4",
+            "description": "Find a dummy image",
+            "action": "find_image_and_click",
+            "parameters": {"image_path": "images/dummy_target.png", "timeout": 1},
+            "on_success": "5",
+            "on_failure": "6"
+        },
+        {
+            "id": "5",
+            "description": "Image found (should not happen)",
+            "action": "debug_print",
+            "parameters": {"message": "Dummy image found! (This is unexpected)"},
+            "on_success": "exit"
+        },
+        {
+            "id": "6",
+            "description": "Image not found (expected)",
+            "action": "debug_print",
+            "parameters": {"message": "Dummy image not found, as expected."},
+            "on_success": "7"
+        },
+        {
+            "id": "7",
+            "description": "Finish Workflow",
+            "action": "debug_print",
+            "parameters": {"message": "Workflow finished."},
+            "on_success": "exit"
+        }
+    ]
+}
